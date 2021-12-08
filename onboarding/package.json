@@ -1,0 +1,23 @@
+{
+  "name": "onboarding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --runInBand"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "postgresql",
+    "jquery",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^27.4.3",
+    "pg": "^8.7.1"
+  }
+}
