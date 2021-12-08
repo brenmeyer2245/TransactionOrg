@@ -1,0 +1,24 @@
+{
+  "name": "plastic",
+  "version": "1.0.0",
+  "description": "Plastic is a credit card processing platform.",
+  "main": "jest.config.js",
+  "scripts": {
+    "test": "jest --runInBand"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "postgresql",
+    "jquery",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^27.4.3",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-beta.1"
+  }
+}
