@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "mocha \"./tests/*.spec.js\" --exit",
+    "seed": "node ./db/seed.js"
   },
   "keywords": [
     "node",
@@ -16,8 +17,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.3.4",
     "express": "^4.17.1",
     "jest": "^27.4.3",
-    "pg": "^8.7.1"
+    "mocha": "^9.1.3",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-beta.1",
+    "supertest": "^6.1.6"
   }
 }
