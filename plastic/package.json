@@ -4,7 +4,8 @@
   "description": "Plastic is a credit card processing platform.",
   "main": "jest.config.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "seed": "node ./db/seed.js"
   },
   "keywords": [
     "node",
@@ -16,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "jest": "^27.4.3",
     "pg": "^8.7.1",
