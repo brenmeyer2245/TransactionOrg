@@ -1,10 +1,9 @@
-const {db, Merchant, MerchantAccount} = require('../db');
+const {db, Merchant} = require('../db');
 const server = require('../index.js');
 const request = require('supertest')
 const {expect, assert} = require('chai');
-const merchantAccount = require('../db/models/merchantAccount');
 
-describe('api endpoints', () => {
+xdescribe('merchant api endpoints', () => {
     let merchant
     beforeEach(async () => {
         await db.sync({force: true})
