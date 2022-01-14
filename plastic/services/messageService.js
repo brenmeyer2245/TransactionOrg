@@ -1,12 +1,12 @@
 var amqp = require("amqplib/callback_api");
-const {Seller} = require('../db');
+const { Seller } = require("../db");
 
 const MESSAGING_CONSTANTS = {
   CONN_URL: "amqp://localhost",
   MERCHANT_QUEUE: "merchant_queue",
   MERCHANT_ACCOUNT_QUEUE: "merchant_account_queue",
   ENTITY_MAPPINGS: {
-      MERCHANT: Seller
+    MERCHANT: Seller
   }
 };
 
@@ -25,21 +25,26 @@ const setupListener = (conn_url, queue) => {
   });
 };
 
-function processMessage(message) {
+async function processMessage(message) {
   //convert to an object
-  const {entity, action, payload} = JSON.parse(message);
-  const mappedEntity = MESSAGING_CONSTANTS.ENTITY_MAPPINGS[entity]
+  const { entity, action, payload } = JSON.parse(message);
+  const mappedEntity = MESSAGING_CONSTANTS.ENTITY_MAPPINGS[entity];
   switch (action) {
     case "POST": {
       mappedEntity.create({
-          businessName: payload.name
-      })
-      break;
-    }
-    case "PATCH": {
+        businessName: payload.name,
+      });
       break;
     }
     case "PUT": {
+      mappedEntity.findById(payload.entityId);
+
+      break;
+    }
+    case "DELETE": {
+      mappedEntity
+        .findById(payload.entityId)
+        .then((entity) => entity.destroy());
       break;
     }
     default: {
