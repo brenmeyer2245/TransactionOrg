@@ -5,9 +5,9 @@ We will assume that once transactions are entered in the Database, they are proc
 The first iteration of application uses the following entities 
 
 ### Seller: The merchant trading goods or services for compensation 
+    - pk (int)
     - publicId (UUID)
     - businessName (string)
-    - pk (int)
 
 ### Buyer: The consumer exchanging compensation for goods/services
     - pk (int)

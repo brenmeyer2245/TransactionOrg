@@ -1,23 +1,35 @@
-const Buyer = require('./Buyer');
-const Seller = require('./Seller');
-const Card = require('./Card');
-const CardBrand = require('./CardBrand');
-const CardType = require('./CardType');
-const Transaction = require('./Transaction');
+const Buyer = require("./Buyer");
+const Seller = require("./Seller");
+const Card = require("./Card");
+const CardBrand = require("./CardBrand");
+const CardType = require("./CardType");
+const Transaction = require("./Transaction");
 
-Transaction.hasOne(Buyer);
-Transaction.hasOne(Seller);
-Transaction.hasOne(Card);
+Transaction.belongsTo(Buyer, {
+  foreignKey: {
+    name: "buyerFk",
+  },
+});
+Transaction.belongsTo(Seller, {
+  foreignKey: {
+    name: "sellerFk",
+  },
+});
+Transaction.belongsTo(Card, {
+  foreignKey: {
+    name: "cardFk",
+  },
+});
 
-Card.hasOne(CardBrand)
-Card.hasOne(CardType)
-Card.hasOne(Buyer)
+Card.hasOne(CardBrand);
+Card.hasOne(CardType);
+Card.belongsTo(Buyer);
 
 module.exports = {
-    Buyer,
-    Seller,
-    Card, 
-    CardBrand, 
-    CardType, 
-    Transaction
-}
+  Buyer,
+  Seller,
+  Card,
+  CardBrand,
+  CardType,
+  Transaction,
+};

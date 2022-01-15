@@ -11,11 +11,12 @@ const {
 async function seed() {
   await db.sync({ force: true });
   console.log("Synced DB");
-  await createSellers();
+  const seller = await createSellers();
   const buyer = await createBuyers();
   const cardBrand= await createCardBrands();
   const cardType = await createCardTypes();
-  await createCards(cardBrand, cardType, buyer );
+  const card = await createCards(cardBrand, cardType, buyer );
+  await createTransactions(seller, buyer, card)
   await db.close();
 }
 
@@ -47,13 +48,24 @@ async function createCardTypes() {
 }
 
 async function createCards(cardBrand, cardType, buyer) {
-  const card = await Card.create({
+  return await Card.create({
     cardNumber: "111111",
     active: true,
     expirationDate: new Date("2090/01/01"),
     cardBrandPk: cardBrand.pk,
     cardTypePk: cardType.pk,
     buyerPk : buyer.pk
+  });
+
+}
+async function createTransactions(seller, buyer, card) {
+  const trxn1 = await Transaction.create({
+    sellerFk: seller.pk,
+    cardFk: card.pk,
+    buyerFk : buyer.pk,
+    settlementAmount: 10.00, 
+    settlementDateTime: Date.now(),
+    transactionType: "sale",
   });
 }
 
