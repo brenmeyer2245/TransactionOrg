@@ -1,6 +1,7 @@
 const User = require("./User");
 const UserAccount = require("./UserAccount");
 const Transaction = require("./Transaction");
+const Status =  require('./Status');
 
 UserAccount.belongsTo(User);
 Transaction.belongsTo(UserAccount, {
@@ -14,9 +15,15 @@ Transaction.belongsTo(UserAccount, {
     }
 })
 
+Transaction.belongsTo(Status, {
+    foreignKey: {
+        name: "statusFk"
+    }
+});
 
 module.exports = {
   User,
   UserAccount,
   Transaction,
+  Status
 };

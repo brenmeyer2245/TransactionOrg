@@ -20,9 +20,6 @@ module.exports = db.define('Transaction', {
    amount: {
     type: DataTypes.DECIMAL,
     defaultValue: 0.00
-   },
-   status : {
-       type: DataTypes.STRING
    }
 });
 
