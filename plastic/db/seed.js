@@ -59,12 +59,40 @@ async function createCards(cardBrand, cardType, buyer) {
 
 }
 async function createTransactions(seller, buyer, card) {
+  const dateNow = new Date();
+  const nextDate = new Date(); 
+  nextDate.setDate(dateNow.getDate() + 1);
+
   const trxn1 = await Transaction.create({
     sellerFk: seller.pk,
     cardFk: card.pk,
     buyerFk : buyer.pk,
     settlementAmount: 10.00, 
-    settlementDateTime: Date.now(),
+    settlementDateTime: dateNow,
+    transactionType: "sale",
+  });
+  const trxn2 = await Transaction.create({
+    sellerFk: seller.pk,
+    cardFk: card.pk,
+    buyerFk : buyer.pk,
+    settlementAmount: 11.00, 
+    settlementDateTime: dateNow,
+    transactionType: "sale",
+  });
+  const trxn3 = await Transaction.create({
+    sellerFk: seller.pk,
+    cardFk: card.pk,
+    buyerFk : buyer.pk,
+    settlementAmount: 12.00, 
+    settlementDateTime: nextDate,
+    transactionType: "sale",
+  });
+  const trxn4 = await Transaction.create({
+    sellerFk: seller.pk,
+    cardFk: card.pk,
+    buyerFk : buyer.pk,
+    settlementAmount: 13.00, 
+    settlementDateTime: nextDate,
     transactionType: "sale",
   });
 }

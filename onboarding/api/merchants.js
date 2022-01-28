@@ -21,9 +21,14 @@ merchantRouter.post("/", async (req, res, next) => {
     name,
   });
   sendMessage(
-    MESSAGING_CONSTANTS.merchantQueue,
+    MESSAGING_CONSTANTS.plasticMerchantQueue,
     formatMessage("POST", "MERCHANT", merchant)
-  );
+    );
+
+    sendMessage(
+      MESSAGING_CONSTANTS.friendPayMerchantQueue,
+      formatMessage("POST", "MERCHANT", merchant)
+    );
   res.json(merchant);
 });
 module.exports = merchantRouter;

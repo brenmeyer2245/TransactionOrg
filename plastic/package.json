@@ -5,7 +5,9 @@
   "main": "jest.config.js",
   "scripts": {
     "test": "jest --runInBand",
-    "seed": "node ./db/seed.js"
+    "seed": "node ./db/seed.js",
+    "message": "node ./services/messageService.js"
+
   },
   "keywords": [
     "node",

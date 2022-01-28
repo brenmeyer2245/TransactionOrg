@@ -3,8 +3,8 @@ const { Seller } = require("../db");
 
 const MESSAGING_CONSTANTS = {
   CONN_URL: "amqp://localhost",
-  MERCHANT_QUEUE: "merchant_queue",
-  MERCHANT_ACCOUNT_QUEUE: "merchant_account_queue",
+  MERCHANT_QUEUE: "plasticMerchantQueue",
+  MERCHANT_ACCOUNT_QUEUE: "plasticMerchantAccountQueue",
   ENTITY_MAPPINGS: {
     MERCHANT: Seller
   }
@@ -26,9 +26,19 @@ const setupListener = (conn_url, queue) => {
 };
 
 async function processMessage(message) {
+
+  try {
+    JSON.parse(message); 
+  } catch(e){
+    return false
+  }
+
   //convert to an object
   const { entity, action, payload } = JSON.parse(message);
   const mappedEntity = MESSAGING_CONSTANTS.ENTITY_MAPPINGS[entity];
+
+  if (!payload || !mappedEntity) return;
+
   switch (action) {
     case "POST": {
       mappedEntity.create({

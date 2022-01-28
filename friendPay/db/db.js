@@ -1,2 +1,2 @@
 const {Sequelize} = require('sequelize');
-module.exports = new Sequelize("postgres://localhost:5432/mobilePay");
+module.exports = new Sequelize("postgres://localhost:5432/friendPay");

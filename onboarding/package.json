@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha \"./tests/*.spec.js\" --exit",
     "seed": "node ./db/seed.js",
+    "message": "node ./services/messaging", 
     "start": "nodemon index.js"
   },
   "keywords": [

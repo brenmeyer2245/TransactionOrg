@@ -1,36 +1,52 @@
 const express = require("express");
+const { transaction } = require("../db/db");
 const { UserAccount, Transaction, Status } = require("../db/models");
 const transactionsRouter = express.Router();
 
+
 transactionsRouter.post("/", async (req, res, next) => {
-  const { amount, senderAccountPublicId, receiverAccountPublicId } = req.body;
+  try {
+    const { amount, senderAccountPublicId, receiverAccountPublicId } = req.body;
 
-  const { senderPk: pk } = await UserAccount.findOne({
-    where: {
-      publicId: senderAccountPublicId,
-    },
-  });
-  const { receiverPk: pk } = await UserAccount.findOne({
-    where: {
-      publicId: receiverAccountPublicId,
-    },
-  });
+    const sender = await UserAccount.findOne({
+      where: {
+        publicId: senderAccountPublicId,
+      },
+    });
+    const receiver = await UserAccount.findOne({
+      where: {
+        publicId: receiverAccountPublicId,
+      },
+    });
 
-  const {statusPk: pk } = await Status.findOne({
-    where: {
-      name: "Pending",
-    },
-  });
+    const status = await Status.findOne({
+      where: {
+        value: "Pending",
+      },
+    });
 
-  const transaction = await Transaction.create({
-    date: Date.now(),
-    amount,
-    sendingAccountFk: senderPk,
-    receivingAccountFk: receiverPk,
-    statusFk: statusPk
-  });
-
-  res.json(transaction);
+    const transaction = await Transaction.create({
+      date: Date.now(),
+      amount,
+      sendingAccountFk: sender.pk,
+      receivingAccountFk: receiver.pk,
+      statusFk: status.pk,
+    });
+    res.json(transaction);
+  } catch (e) {
+    next(e);
+  }
 });
 
-module.exports = merchantAccountRouter;
+transactionsRouter.get("/:publicId", async (req, res, next) => {
+  try {
+    console.log("Transaction Hit on" + process.pid)
+    const { publicId } = req.params;
+    const transaction = await Transaction.findOne({ where: { publicId } });
+    res.json(transaction);
+  } catch (e) {
+    next(e);
+  }
+});
+
+module.exports = transactionsRouter;
